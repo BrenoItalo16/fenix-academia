@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "161561829387",
+    "project_id": "academia-fenix",
+    "storage_bucket": "academia-fenix.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161561829387:android:496dba6635f5d761cd270e",
+        "android_client_info": {
+          "package_name": "dev.devbitt.fenix_academia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161561829387-to872v5sh1q183e311lklgm7sce0p70p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMZdIMcfszJmaIRh1WAvLmvK0E6vNRD_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161561829387-to872v5sh1q183e311lklgm7sce0p70p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
