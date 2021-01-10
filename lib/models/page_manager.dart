@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PageManager {
   PageManager(this._pageController);
-  final PageController _pageController;
+
+  final PageController _pageController; //Privado
 
   int page = 0;
 

@@ -7,6 +7,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/fenix" />
+            android:src="@mipmap/fenix1" />
     </item>
 </layer-list>

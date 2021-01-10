@@ -1,3 +1,4 @@
+import 'package:fenix_academia/common/custom_drawer/custom_drawer_header.dart';
 import 'package:fenix_academia/common/custom_drawer/drawer_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -19,7 +20,7 @@ class CustomDrawer extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   Color.fromARGB(190, 0, 0, 0),
-                  Color.fromARGB(230, 100, 52, 65),
+                  Color.fromARGB(230, 80, 30, 30),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -27,30 +28,45 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           ListView(
-            children: const [
-              DrawerTile(
-                //iconData: Icons.home_outlined,
-                iconData: MdiIcons.weightLifter,
-                title: 'Treino',
+            children: <Widget>[
+              CustomDrawerHeader(),
+              const Divider(
+                color: Colors.white54,
+              ),
+              const DrawerTile(
+                iconData: MdiIcons.homeOutline,
+                title: 'Início',
                 page: 0,
               ),
-              DrawerTile(
-                //iconData: Icons.home_outlined,
-                iconData: MdiIcons.armFlexOutline,
-                title: 'Crescimento',
+              const DrawerTile(
+                iconData: MdiIcons.accountPlusOutline,
+                title: 'Novo Aluno',
                 page: 1,
               ),
-              DrawerTile(
-                //iconData: Icons.home_outlined,
+              const DrawerTile(
                 iconData: MdiIcons.cardAccountDetailsOutline,
-                title: 'Cadastro',
+                title: 'Exercícios',
                 page: 2,
               ),
-              DrawerTile(
-                //iconData: Icons.home_outlined,
+              const DrawerTile(
+                iconData: MdiIcons.accountGroupOutline,
+                title: 'Alunos',
+                page: 3,
+              ),
+              const DrawerTile(
                 iconData: MdiIcons.accountCashOutline,
                 title: 'Mensalidade',
-                page: 3,
+                page: 4,
+              ),
+              const DrawerTile(
+                iconData: MdiIcons.armFlexOutline,
+                title: 'Passar treino',
+                page: 5,
+              ),
+              const DrawerTile(
+                iconData: Icons.contact_support_outlined,
+                title: 'Suport',
+                page: 6,
               ),
             ],
           ),

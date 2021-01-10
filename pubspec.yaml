@@ -36,6 +36,8 @@ dependencies:
   material_design_icons_flutter: ^4.0.5755
   provider: ^4.1.2
   flare_flutter: any
+  flutter_staggered_animations: ^0.1.2
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +59,14 @@ flutter:
     - android/assets/images/model.jpg
     - android/assets/images/model2.jpg
     - android/assets/images/fenix.png
+    - android/assets/images/suport.png
+    - android/assets/images/fenixAlunos.png
+    - android/assets/images/fenixExe.png
+    - android/assets/images/fenixMon.png
+    - android/assets/images/fenixTre.png
+    - android/assets/images/fenixNovoAluno.png
+    - android/assets/images/fenixLogin.png
+    - android/assets/images/fenixCadastro.png
     - android/assets/images/fire.png
     - android/assets/images/loading.flr
 

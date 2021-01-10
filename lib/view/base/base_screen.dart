@@ -1,7 +1,11 @@
-import 'package:fenix_academia/common/custom_drawer/custom_drawer.dart';
-import 'package:fenix_academia/main.dart';
 import 'package:fenix_academia/models/page_manager.dart';
-import 'package:fenix_academia/view/login/login_screen.dart';
+import 'package:fenix_academia/view/exercises/exercises_screen.dart';
+import 'package:fenix_academia/view/home/home_screen.dart';
+import 'package:fenix_academia/view/money_screen/money_screen.dart';
+import 'package:fenix_academia/view/new_student.dart/new_student_screen.dart';
+import 'package:fenix_academia/view/student/students_screen.dart';
+import 'package:fenix_academia/view/suport/suport_screen.dart';
+import 'package:fenix_academia/view/treinning/treinning_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,26 +19,13 @@ class BaseScreen extends StatelessWidget {
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          LoginScree(),
-          Scaffold(
-            key: scaffoldKey,
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text('Crescimento'),
-            ),
-          ),
-          Scaffold(
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text('Cadastro'),
-            ),
-          ),
-          Scaffold(
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text('Mensalidade'),
-            ),
-          ),
+          HomeScreen(),
+          NewStudentScreen(),
+          ExercisesScreen(),
+          StudentsScreen(),
+          MoneyScreen(),
+          TreinningScreen(),
+          SuportScreen(),
         ],
       ),
     );
