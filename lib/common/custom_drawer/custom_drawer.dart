@@ -39,33 +39,33 @@ class CustomDrawer extends StatelessWidget {
                 page: 0,
               ),
               const DrawerTile(
-                iconData: MdiIcons.accountPlusOutline,
-                title: 'Novo Aluno',
-                page: 1,
-              ),
-              const DrawerTile(
                 iconData: MdiIcons.cardAccountDetailsOutline,
                 title: 'Exercícios',
-                page: 2,
-              ),
-              const DrawerTile(
-                iconData: MdiIcons.accountGroupOutline,
-                title: 'Alunos',
-                page: 3,
+                page: 1,
               ),
               const DrawerTile(
                 iconData: MdiIcons.accountCashOutline,
                 title: 'Mensalidade',
-                page: 4,
-              ),
-              const DrawerTile(
-                iconData: MdiIcons.armFlexOutline,
-                title: 'Passar treino',
-                page: 5,
+                page: 2,
               ),
               const DrawerTile(
                 iconData: Icons.contact_support_outlined,
                 title: 'Suport',
+                page: 3,
+              ),
+              const DrawerTile(
+                iconData: MdiIcons.accountPlusOutline,
+                title: 'Novo Aluno',
+                page: 4,
+              ),
+              const DrawerTile(
+                iconData: MdiIcons.accountGroupOutline,
+                title: 'Alunos',
+                page: 5,
+              ),
+              const DrawerTile(
+                iconData: MdiIcons.armFlexOutline,
+                title: 'Passar treino',
                 page: 6,
               ),
             ],

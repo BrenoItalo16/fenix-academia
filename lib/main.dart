@@ -10,6 +10,7 @@ import 'package:fenix_academia/view/treinning/treinning_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'models/student_manager.dart';
 import 'view/suport/suport_screen.dart';
 
 void main() {
@@ -29,9 +30,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => UserManager(),
-      lazy: false,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserManager(),
+          lazy: false,
+        ),
+        ChangeNotifierProxyProvider<UserManager, StudentsManager>(
+          create: (_) => StudentsManager(),
+          lazy: false,
+          update: (_, userManager, adminUsersManager) =>
+              adminUsersManager..updateUser(userManager),
+        )
+      ],
       child: MaterialApp(
         title: 'Academia Fênix',
         debugShowCheckedModeBanner: false,

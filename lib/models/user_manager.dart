@@ -26,7 +26,7 @@ class UserManager extends ChangeNotifier {
       // ignore: unused_local_variable
       final AuthResult result = await auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
-      await Future.delayed(const Duration(seconds: 5)); //! Atrazar o loading
+      await Future.delayed(const Duration(seconds: 2)); //! Atrazar o loading
 
       await _loadCurrentUser(firebaseUser: result.user);
 

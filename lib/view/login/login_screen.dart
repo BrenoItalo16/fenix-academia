@@ -1,7 +1,6 @@
-import 'package:fenix_academia/common/loading/loadingAnimation.dart';
+import 'package:fenix_academia/common/loading/loading_animation.dart';
 import 'package:fenix_academia/models/user.dart';
 import 'package:fenix_academia/models/user_manager.dart';
-//import 'package:flare_flutter/flare_actor.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fenix_academia/helpers/validators.dart';
@@ -17,35 +16,36 @@ class LoginScreen extends StatelessWidget {
       key: scaffoldKey,
       body: Stack(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Image(
-                        image: const AssetImage(
-                            'android/assets/images/fenixLogin.png'),
-                        width: MediaQuery.of(context).size.width / 2,
-                      ),
+          Positioned(
+            top: 0,
+            left: MediaQuery.of(context).size.width / 4,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: Stack(
+                children: [
+                  Center(
+                    child: Image(
+                      image: const AssetImage(
+                          'android/assets/images/fenixLogin.png'),
+                      width: MediaQuery.of(context).size.width / 2,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Image(
-                image: const AssetImage('android/assets/images/fire.png'),
-                width: MediaQuery.of(context).size.width,
-              ),
-            ],
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Image(
+              image: const AssetImage('android/assets/images/fire.png'),
+              width: MediaQuery.of(context).size.width,
+            ),
           ),
           Center(
             child: Consumer<UserManager>(
-              //todo: Consumer começa aqui
               builder: (_, userManager, __) {
                 return userManager.loading
-                    ? LoadingAnimation() //! Animação de loading
+                    ? LoadingAnimation()
                     : Card(
                         margin: const EdgeInsets.symmetric(horizontal: 16),
                         child: Form(
@@ -83,17 +83,18 @@ class LoginScreen extends StatelessWidget {
                                   return null;
                                 },
                               ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: FlatButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushReplacementNamed('/signup');
-                                  },
-                                  padding: EdgeInsets.zero,
-                                  child: const Text('Cadastrar aluno'),
+                              if (userManager.adminEnabled)
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushReplacementNamed('/signup');
+                                    },
+                                    padding: EdgeInsets.zero,
+                                    child: const Text('Cadastrar aluno'),
+                                  ),
                                 ),
-                              ),
                               const SizedBox(height: 16),
                               SizedBox(
                                 height: 40,

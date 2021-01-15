@@ -18,8 +18,6 @@ class OptionsHome extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.read<PageManager>().setPage(pagina);
-        Navigator.of(context).pushNamed(customRoute);
-        Navigator.of(context).pop();
         //debugPrint('passou $curPage');
       },
       child: SizedBox(

@@ -2,7 +2,7 @@ import 'package:fenix_academia/models/page_manager.dart';
 import 'package:fenix_academia/view/exercises/exercises_screen.dart';
 import 'package:fenix_academia/view/home/home_screen.dart';
 import 'package:fenix_academia/view/money_screen/money_screen.dart';
-import 'package:fenix_academia/view/new_student.dart/new_student_screen.dart';
+import 'package:fenix_academia/view/signup/signup_screen.dart';
 import 'package:fenix_academia/view/student/students_screen.dart';
 import 'package:fenix_academia/view/suport/suport_screen.dart';
 import 'package:fenix_academia/view/treinning/treinning_screen.dart';
@@ -20,12 +20,12 @@ class BaseScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           HomeScreen(),
-          NewStudentScreen(),
           ExercisesScreen(),
-          StudentsScreen(),
           MoneyScreen(),
-          TreinningScreen(),
           SuportScreen(),
+          SignupScreen(),
+          StudentsScreen(),
+          TreinningScreen(),
         ],
       ),
     );

@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //todo: TESTANDO ROTA
     return Scaffold(
       //key: scaffoldKey,
       drawer: CustomDrawer(),
@@ -24,10 +23,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (userManager.isLoggedIn) {
-                    Navigator.of(context).pushReplacementNamed('/');
+                    Navigator.of(context).pushNamed('/base');
                     userManager.signOut();
                   } else {
-                    Navigator.of(context).pushReplacementNamed('/login');
+                    Navigator.of(context).pushNamed('/login');
                   }
                 },
               );
@@ -70,14 +69,14 @@ class HomeScreen extends StatelessWidget {
                           OptionsHome(
                             iconData: MdiIcons.accountPlusOutline,
                             title: 'Novo Aluno',
-                            customRoute: '/newstudent',
-                            pagina: 1,
+                            customRoute: '/signup',
+                            pagina: 4,
                           ),
                           OptionsHome(
                             iconData: MdiIcons.weightLifter,
                             title: 'Exercícios',
                             customRoute: '/exercises',
-                            pagina: 2,
+                            pagina: 1,
                           ),
                         ],
                       ),
@@ -91,13 +90,13 @@ class HomeScreen extends StatelessWidget {
                             iconData: MdiIcons.cardAccountDetailsOutline,
                             title: 'Alunos',
                             customRoute: '/students',
-                            pagina: 3,
+                            pagina: 5,
                           ),
                           OptionsHome(
                             iconData: MdiIcons.accountCashOutline,
                             title: 'Mensalidade',
                             customRoute: '/money',
-                            pagina: 4,
+                            pagina: 2,
                           ),
                         ],
                       ),
@@ -111,13 +110,13 @@ class HomeScreen extends StatelessWidget {
                             iconData: MdiIcons.armFlexOutline,
                             title: 'Passar Treino',
                             customRoute: '/treinning',
-                            pagina: 5,
+                            pagina: 6,
                           ),
                           OptionsHome(
                             iconData: Icons.contact_support_outlined,
                             title: 'Suporte',
                             customRoute: '/suport',
-                            pagina: 6,
+                            pagina: 3,
                           ),
                         ],
                       ),
