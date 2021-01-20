@@ -57,7 +57,7 @@ class ExercisesScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 130, 16, 16),
                 child: ListView(
                   //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [],
+                  children: const [null],
                 ),
               ),
             ],

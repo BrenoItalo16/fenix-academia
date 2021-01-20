@@ -1,7 +1,8 @@
 import 'package:url_launcher/url_launcher.dart';
 
 whatsapp() async {
-  var whatsappUrl = "whatsapp://send?phone=+5584996641848&text=Olá, tudo bem?";
+  const whatsappUrl =
+      "whatsapp://send?phone=+5584996641848&text=Olá, tudo bem?";
 
   if (await canLaunch(whatsappUrl)) {
     await launch(whatsappUrl);

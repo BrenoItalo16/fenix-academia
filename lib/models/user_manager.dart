@@ -26,7 +26,7 @@ class UserManager extends ChangeNotifier {
       // ignore: unused_local_variable
       final AuthResult result = await auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
-      await Future.delayed(const Duration(seconds: 2)); //! Atrazar o loading
+      await Future.delayed(const Duration(seconds: 1)); //! Atrazar o loading
 
       await _loadCurrentUser(firebaseUser: result.user);
 
@@ -41,14 +41,14 @@ class UserManager extends ChangeNotifier {
     loading = true;
 
     try {
+      // ignore: unused_local_variable
       final AuthResult result = await auth.createUserWithEmailAndPassword(
         email: user.email,
         password: user.password,
       );
 
-      user.id = result.user.uid;
-
-      this.user = user;
+      // user.id = result.user.uid; //! O usuário cadastrado fica logado
+      // this.user = user; //! O usuário cadastrado fica logado
 
       await user.saveData();
 
@@ -91,6 +91,12 @@ class UserManager extends ChangeNotifier {
         user.treiner = true;
       }
 
+      //! Desenvolvedor
+      final docDev = await firestore.collection('devs').document(user.id).get();
+      if (docDev.exists) {
+        user.dev = true;
+      }
+
       notifyListeners();
     }
   }
@@ -98,4 +104,6 @@ class UserManager extends ChangeNotifier {
   bool get adminEnabled => user != null && user.admin;
 
   bool get treinerEnabled => user != null && user.treiner;
+
+  bool get devEnabled => user != null && user.dev;
 }

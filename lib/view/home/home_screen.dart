@@ -5,34 +5,34 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'components/options_home2.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //key: scaffoldKey,
+      // key: scaffoldKey,
       drawer: CustomDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        actions: [
-          Consumer<UserManager>(
-            builder: (_, userManager, __) {
-              return IconButton(
-                icon: Icon(
-                  userManager.isLoggedIn ? Icons.logout : Icons.login,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  if (userManager.isLoggedIn) {
-                    Navigator.of(context).pushNamed('/base');
-                    userManager.signOut();
-                  } else {
-                    Navigator.of(context).pushNamed('/login');
-                  }
-                },
-              );
-            },
-          ),
-        ],
+        // actions: [
+        //   Consumer<UserManager>(
+        //     builder: (_, userManager, __) {
+        //       return IconButton(
+        //         icon: Icon(
+        //           userManager.isLoggedIn ? Icons.logout : Icons.login,
+        //           color: Colors.white,
+        //         ),
+        //         onPressed: () {
+        //           if (userManager.user.id.isNotEmpty) {
+        //             debugPrint(userManager.user.name.toString());
+        //             debugPrint(userManager.user.images.toString());
+        //           }
+        //         },
+        //       );
+        //     },
+        //   ),
+        // ],
       ),
       body: Consumer<UserManager>(
         builder: (_, userManager, __) {
@@ -66,11 +66,10 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         // ignore: prefer_const_literals_to_create_immutables
                         children: const [
-                          OptionsHome(
+                          OptionsHome2(
                             iconData: MdiIcons.accountPlusOutline,
                             title: 'Novo Aluno',
                             customRoute: '/signup',
-                            pagina: 4,
                           ),
                           OptionsHome(
                             iconData: MdiIcons.weightLifter,
@@ -90,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                             iconData: MdiIcons.cardAccountDetailsOutline,
                             title: 'Alunos',
                             customRoute: '/students',
-                            pagina: 5,
+                            pagina: 4,
                           ),
                           OptionsHome(
                             iconData: MdiIcons.accountCashOutline,
@@ -110,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                             iconData: MdiIcons.armFlexOutline,
                             title: 'Passar Treino',
                             customRoute: '/treinning',
-                            pagina: 6,
+                            pagina: 5,
                           ),
                           OptionsHome(
                             iconData: Icons.contact_support_outlined,

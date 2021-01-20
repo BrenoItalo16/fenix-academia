@@ -15,26 +15,65 @@ class CustomDrawerHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              const Text(
-                'Academia \nFenix',
-                style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white54,
+              if (userManager.isLoggedIn)
+                Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Container(
+                        height: 70,
+                        width: 70,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color.fromARGB(255, 80, 30, 30),
+                        ),
+                        child: const Icon(
+                          MdiIcons.account,
+                          color: Color.fromARGB(255, 100, 30, 30),
+                          size: 36,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 26, vertical: 10),
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          // color: Color.fromARGB(255, 80, 30, 130),
+                          image: DecorationImage(
+                            image: NetworkImage(userManager.user.images.first),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              if (!userManager.isLoggedIn)
+                const Text(
+                  'Academia \nFenix',
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white54,
+                  ),
+                ),
               const SizedBox(height: 10),
-              Text(
-                // ignore: unnecessary_string_interpolations
-                '${userManager.user?.name ?? ''}',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+              if (userManager.isLoggedIn)
+                Text(
+                  // ignore: unnecessary_string_interpolations
+                  '${userManager.user?.name ?? ''}',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
               GestureDetector(
                 onTap: () {
                   if (userManager.isLoggedIn) {
@@ -63,6 +102,19 @@ class CustomDrawerHeader extends StatelessWidget {
                           ),
                           Text(
                             'Admin',
+                            style: TextStyle(color: Colors.white54),
+                          )
+                        ],
+                      )
+                    else if (userManager.devEnabled && userManager.isLoggedIn)
+                      Column(
+                        children: const [
+                          Icon(
+                            MdiIcons.devTo,
+                            color: Colors.amber,
+                          ),
+                          Text(
+                            'Desenvolvedor',
                             style: TextStyle(color: Colors.white54),
                           )
                         ],

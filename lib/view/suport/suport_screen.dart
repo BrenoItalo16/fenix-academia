@@ -62,12 +62,11 @@ class SuportScreen extends StatelessWidget {
                   children: const [
                     OptionsSuport(
                       iconData: MdiIcons.map,
-                      title:
-                          'Rua Manoel Dantas Barreto, 28 \nCentro, Ipanguaçu',
+                      title: "Av Luiz Gonzaga, 3306 \nOlho d'água, Ipanguaçu",
                     ),
                     OptionsSuport(
                       iconData: MdiIcons.phone,
-                      title: 'Entrar em contato (84 99855-9833)',
+                      title: 'Entrar em contato (84 99664-1848)',
                     ),
                     OptionsSuport(
                       iconData: MdiIcons.whatsapp,

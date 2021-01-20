@@ -1,16 +1,18 @@
+import 'package:fenix_academia/models/student.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:fenix_academia/view/base/base_screen.dart';
 import 'package:fenix_academia/view/exercises/exercises_screen.dart';
 import 'package:fenix_academia/view/login/login_screen.dart';
 import 'package:fenix_academia/view/money_screen/money_screen.dart';
-import 'package:fenix_academia/view/new_student.dart/new_student_screen.dart';
+import 'package:fenix_academia/view/signup/components/signup_confirm.dart';
 import 'package:fenix_academia/view/signup/signup_screen.dart';
-import 'package:fenix_academia/view/student/students_screen.dart';
 import 'package:fenix_academia/view/treinning/treinning_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'models/student_manager.dart';
+import 'view/student/student_screen.dart';
+import 'view/student_list/students_list_screen.dart';
 import 'view/suport/suport_screen.dart';
 
 void main() {
@@ -36,12 +38,14 @@ class MyApp extends StatelessWidget {
           create: (_) => UserManager(),
           lazy: false,
         ),
-        ChangeNotifierProxyProvider<UserManager, StudentsManager>(
-          create: (_) => StudentsManager(),
+        ChangeNotifierProvider(
+          create: (_) => StudentManager(),
           lazy: false,
-          update: (_, userManager, adminUsersManager) =>
-              adminUsersManager..updateUser(userManager),
-        )
+        ),
+        Provider(
+          create: (_) => SignupConfirm,
+          lazy: false,
+        ),
       ],
       child: MaterialApp(
         title: 'Academia Fênix',
@@ -69,13 +73,9 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (_) => ExercisesScreen(),
               );
-            case '/newstudent':
-              return MaterialPageRoute(
-                builder: (_) => NewStudentScreen(),
-              );
             case '/students':
               return MaterialPageRoute(
-                builder: (_) => StudentsScreen(),
+                builder: (_) => StudentsListScreen(),
               );
             case '/money':
               return MaterialPageRoute(
@@ -88,6 +88,10 @@ class MyApp extends StatelessWidget {
             case '/suport':
               return MaterialPageRoute(
                 builder: (_) => SuportScreen(),
+              );
+            case '/student':
+              return MaterialPageRoute(
+                builder: (_) => StudentScreen(settings.arguments as Student),
               );
             case '/':
             default:

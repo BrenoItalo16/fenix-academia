@@ -1,7 +1,7 @@
-import 'package:fenix_academia/common/custom_drawer/custom_drawer.dart';
 import 'package:fenix_academia/common/loading/loading_animation.dart';
 import 'package:fenix_academia/models/user.dart';
 import 'package:fenix_academia/models/user_manager.dart';
+import 'package:fenix_academia/view/signup/components/signup_confirm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,29 +15,18 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      drawer: CustomDrawer(),
+      // drawer: CustomDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        actions: [
-          Consumer<UserManager>(
-            builder: (_, userManager, __) {
-              return IconButton(
-                icon: Icon(
-                  userManager.isLoggedIn ? Icons.logout : Icons.login,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  if (userManager.isLoggedIn) {
-                    Navigator.of(context).pushNamed('/base');
-                    userManager.signOut();
-                  } else {
-                    Navigator.of(context).pushNamed('/login');
-                  }
-                },
-              );
-            },
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
           ),
-        ],
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: Consumer<UserManager>(builder: (_, userManager, __) {
         return Stack(
@@ -148,11 +137,11 @@ class SignupScreen extends StatelessWidget {
                                   Navigator.of(context)
                                       .pushReplacementNamed('/login');
                                 },
-                                padding: EdgeInsets.zero,
-                                child: const Text('Já tenho cadastro'),
+                                child: null,
+                                // padding: EdgeInsets.zero,
+                                // child: const Text('Já tenho cadastro'),
                               ),
                             ),
-                            const SizedBox(height: 32),
                             SizedBox(
                               height: 40,
                               child: RaisedButton(
@@ -170,20 +159,30 @@ class SignupScreen extends StatelessWidget {
                                       return;
                                     }
                                     context.read<UserManager>().signUp(
-                                        user: user,
-                                        onSuccess: () {
-                                          debugPrint('Successo ao cadastrar!');
-                                          Navigator.of(context).pop();
-                                        },
-                                        onFail: (e) {
-                                          scaffoldKey.currentState.showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  'Falha ao cadastrar: $e'),
-                                              backgroundColor: Colors.red,
-                                            ),
-                                          );
-                                        });
+                                          user: user,
+                                          onSuccess: () async {
+                                            await showDialog<String>(
+                                              context: context,
+                                              builder: (_) => SignupConfirm(
+                                                user.name,
+                                              ),
+                                            );
+
+                                            // debugPrint('Successo ao cadastrar!');
+                                            // Navigator.of(context)
+                                            //     .pushReplacementNamed('/');
+                                          },
+                                          onFail: (e) {
+                                            scaffoldKey.currentState
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    'Falha ao cadastrar: $e'),
+                                                backgroundColor: Colors.red,
+                                              ),
+                                            );
+                                          },
+                                        );
                                   }
                                 },
                                 color: Theme.of(context).primaryColor,

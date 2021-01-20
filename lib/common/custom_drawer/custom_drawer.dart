@@ -54,19 +54,14 @@ class CustomDrawer extends StatelessWidget {
                 page: 3,
               ),
               const DrawerTile(
-                iconData: MdiIcons.accountPlusOutline,
-                title: 'Novo Aluno',
-                page: 4,
-              ),
-              const DrawerTile(
                 iconData: MdiIcons.accountGroupOutline,
                 title: 'Alunos',
-                page: 5,
+                page: 4,
               ),
               const DrawerTile(
                 iconData: MdiIcons.armFlexOutline,
                 title: 'Passar treino',
-                page: 6,
+                page: 5,
               ),
             ],
           ),

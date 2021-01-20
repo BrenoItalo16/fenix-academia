@@ -1,28 +1,46 @@
-import 'package:faker/faker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fenix_academia/models/student.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fenix_academia/models/user_manager.dart';
-import 'package:fenix_academia/models/user.dart';
 
-class StudentsManager extends ChangeNotifier {
-  List<User> users = [];
-
-  void updateUser(UserManager userManager) {
-    if (userManager.adminEnabled) {
-      _listenToUsers();
-    }
+class StudentManager extends ChangeNotifier {
+  StudentManager() {
+    _loadAllUsers();
   }
 
-  void _listenToUsers() {
-    const faker = Faker();
+  final Firestore firestore = Firestore.instance;
+  List<Student> allStudents = [];
 
-    for (int i = 0; i < 15; i++) {
-      users.add(User(name: faker.person.name(), email: faker.internet.email()));
-    }
+  String _search = '';
 
-    users.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+  String get search => _search;
 
+  set search(String value) {
+    _search = value;
     notifyListeners();
   }
 
-  List<String> get names => users.map((e) => e.name).toList();
+  List<Student> get filteredStudents {
+    final List<Student> filteredStudents = [];
+
+    if (search.isEmpty) {
+      filteredStudents.addAll(allStudents);
+    } else {
+      filteredStudents.addAll(
+        allStudents.where(
+          (s) => s.name.toLowerCase().contains(search.toLowerCase()),
+        ),
+      );
+    }
+    return filteredStudents;
+  }
+
+  Future<void> _loadAllUsers() async {
+    final QuerySnapshot snapUsers =
+        await firestore.collection('users').getDocuments();
+
+    allStudents =
+        snapUsers.documents.map((d) => Student.fromDocument(d)).toList();
+
+    notifyListeners();
+  }
 }

@@ -1,4 +1,4 @@
-import 'package:fenix_academia/helpers/customUrl.dart';
+import 'package:fenix_academia/helpers/custom_url.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
