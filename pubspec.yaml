@@ -41,7 +41,9 @@ dependencies:
   flutter_launcher_icons: ^0.8.1
   transparent_image: ^1.0.0
   alphabet_list_scroll_view: ^1.0.6
-  faker: ^1.2.1
+  fl_chart: #^0.12.2
+  carousel_pro: ^1.0.0
+  image_picker: ^0.6.7+21
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:fenix_academia/common/profile_pic/profile_pic.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -6,9 +7,10 @@ import 'package:provider/provider.dart';
 class CustomDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final double sizeScreen = MediaQuery.of(context).size.width;
     return Container(
       padding: const EdgeInsets.fromLTRB(32, 24, 16, 8),
-      height: 190,
+      height: sizeScreen / 1.8,
       child: Consumer<UserManager>(
         builder: (_, userManager, __) {
           return Column(
@@ -16,41 +18,9 @@ class CustomDrawerHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               if (userManager.isLoggedIn)
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Container(
-                        height: 70,
-                        width: 70,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 80, 30, 30),
-                        ),
-                        child: const Icon(
-                          MdiIcons.account,
-                          color: Color.fromARGB(255, 100, 30, 30),
-                          size: 36,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 26, vertical: 10),
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          // color: Color.fromARGB(255, 80, 30, 130),
-                          image: DecorationImage(
-                            image: NetworkImage(userManager.user.images.first),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                ProfilePic(
+                  sizeProfile: sizeScreen / 7.5,
+                  image: userManager.user.images.first,
                 ),
               if (!userManager.isLoggedIn)
                 const Text(
@@ -61,19 +31,25 @@ class CustomDrawerHeader extends StatelessWidget {
                     color: Colors.white54,
                   ),
                 ),
-              const SizedBox(height: 10),
               if (userManager.isLoggedIn)
-                Text(
-                  // ignore: unnecessary_string_interpolations
-                  '${userManager.user?.name ?? ''}',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Center(
+                  child: Text(
+                    // ignore: unnecessary_string_interpolations
+                    '${userManager.user?.name ?? ''}',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
+              const Center(
+                child: Divider(
+                  color: Colors.white54,
+                ),
+              ),
               GestureDetector(
                 onTap: () {
                   if (userManager.isLoggedIn) {

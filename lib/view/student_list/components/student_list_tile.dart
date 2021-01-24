@@ -35,7 +35,7 @@ class StudentListTile extends StatelessWidget {
                           width: 70,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Color.fromARGB(255, 80, 30, 30),
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -52,10 +52,10 @@ class StudentListTile extends StatelessWidget {
                     ),
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 26),
+                        padding: const EdgeInsets.symmetric(horizontal: 18.3),
                         child: Container(
-                          height: 50,
-                          width: 50,
+                          height: 65,
+                          width: 65,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             // color: Color.fromARGB(255, 80, 30, 130),

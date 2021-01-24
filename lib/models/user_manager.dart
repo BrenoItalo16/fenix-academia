@@ -47,7 +47,7 @@ class UserManager extends ChangeNotifier {
         password: user.password,
       );
 
-      // user.id = result.user.uid; //! O usuário cadastrado fica logado
+      user.id = result.user.uid; //! O usuário cadastrado fica logado
       // this.user = user; //! O usuário cadastrado fica logado
 
       await user.saveData();

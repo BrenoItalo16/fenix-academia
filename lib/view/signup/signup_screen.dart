@@ -33,26 +33,28 @@ class SignupScreen extends StatelessWidget {
           alignment: Alignment.topCenter,
           overflow: Overflow.visible,
           children: [
-            Positioned(
-              top: -40,
-              child: Image(
-                image:
-                    const AssetImage('android/assets/images/fenixCadastro.png'),
-                width: MediaQuery.of(context).size.width / 2,
+            if (!userManager.loading)
+              Positioned(
+                top: -40,
+                child: Image(
+                  image: const AssetImage(
+                      'android/assets/images/fenixCadastro.png'),
+                  width: MediaQuery.of(context).size.width / 2,
+                ),
               ),
-            ),
             Stack(
               overflow: Overflow.visible,
               children: [
-                Positioned(
-                  bottom: 0,
-                  child: Image(
-                    image: const AssetImage('android/assets/images/fire.png'),
-                    width: MediaQuery.of(context).size.width,
+                if (!userManager.loading)
+                  Positioned(
+                    bottom: 0,
+                    child: Image(
+                      image: const AssetImage('android/assets/images/fire.png'),
+                      width: MediaQuery.of(context).size.width,
+                    ),
                   ),
-                ),
                 if (userManager.loading)
-                  LoadingAnimation()
+                  Center(child: LoadingAnimation())
                 else
                   Center(
                     child: Card(

@@ -1,6 +1,8 @@
 import 'package:fenix_academia/models/student.dart';
+import 'package:fenix_academia/models/user.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:fenix_academia/view/base/base_screen.dart';
+import 'package:fenix_academia/view/edit_student/edit_student_screen.dart';
 import 'package:fenix_academia/view/exercises/exercises_screen.dart';
 import 'package:fenix_academia/view/login/login_screen.dart';
 import 'package:fenix_academia/view/money_screen/money_screen.dart';
@@ -92,6 +94,11 @@ class MyApp extends StatelessWidget {
             case '/student':
               return MaterialPageRoute(
                 builder: (_) => StudentScreen(settings.arguments as Student),
+              );
+            case '/editstudent':
+              return MaterialPageRoute(
+                builder: (_) =>
+                    EditStudentScreen(settings.arguments as Student),
               );
             case '/':
             default:
