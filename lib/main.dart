@@ -1,5 +1,4 @@
 import 'package:fenix_academia/models/student.dart';
-import 'package:fenix_academia/models/user.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:fenix_academia/view/base/base_screen.dart';
 import 'package:fenix_academia/view/edit_student/edit_student_screen.dart';
