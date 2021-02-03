@@ -1,10 +1,16 @@
 import 'package:fenix_academia/common/profile_pic/profile_pic.dart';
+import 'package:fenix_academia/models/page_manager.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
-class CustomDrawerHeader extends StatelessWidget {
+class CustomDrawerHeader extends StatefulWidget {
+  @override
+  _CustomDrawerHeaderState createState() => _CustomDrawerHeaderState();
+}
+
+class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
   @override
   Widget build(BuildContext context) {
     final double sizeScreen = MediaQuery.of(context).size.width;
@@ -20,7 +26,7 @@ class CustomDrawerHeader extends StatelessWidget {
               if (userManager.isLoggedIn)
                 ProfilePic(
                   sizeProfile: sizeScreen / 7.5,
-                  image: userManager.user.images.first,
+                  image: userManager.user.images.last,
                 ),
               if (!userManager.isLoggedIn)
                 const Text(
@@ -53,6 +59,7 @@ class CustomDrawerHeader extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   if (userManager.isLoggedIn) {
+                    context.read<PageManager>().setPage(0);
                     userManager.signOut();
                   } else {
                     Navigator.of(context).pushNamed('/login');

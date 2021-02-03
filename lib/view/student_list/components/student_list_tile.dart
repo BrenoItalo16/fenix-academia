@@ -60,7 +60,7 @@ class StudentListTile extends StatelessWidget {
                             shape: BoxShape.circle,
                             // color: Color.fromARGB(255, 80, 30, 130),
                             image: DecorationImage(
-                              image: NetworkImage(student.images.first),
+                              image: NetworkImage(student.images.last),
                               fit: BoxFit.cover,
                             ),
                           ),

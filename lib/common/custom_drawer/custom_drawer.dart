@@ -1,7 +1,10 @@
 import 'package:fenix_academia/common/custom_drawer/custom_drawer_header.dart';
 import 'package:fenix_academia/common/custom_drawer/drawer_tile.dart';
+import 'package:fenix_academia/models/student.dart';
+import 'package:fenix_academia/models/user_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -39,29 +42,48 @@ class CustomDrawer extends StatelessWidget {
                 page: 0,
               ),
               const DrawerTile(
-                iconData: MdiIcons.cardAccountDetailsOutline,
-                title: 'Exercícios',
-                page: 1,
-              ),
-              const DrawerTile(
                 iconData: MdiIcons.accountCashOutline,
                 title: 'Mensalidade',
-                page: 2,
+                page: 1,
               ),
               const DrawerTile(
                 iconData: Icons.contact_support_outlined,
                 title: 'Suport',
-                page: 3,
+                page: 2,
               ),
-              const DrawerTile(
-                iconData: MdiIcons.accountGroupOutline,
-                title: 'Alunos',
-                page: 4,
-              ),
-              const DrawerTile(
-                iconData: MdiIcons.armFlexOutline,
-                title: 'Passar treino',
-                page: 5,
+              Consumer<UserManager>(
+                builder: (_, userManager, __) {
+                  if (userManager.adminEnabled ||
+                      userManager.devEnabled ||
+                      userManager.treinerEnabled) {
+                    return Column(
+                      children: const [
+                        Center(
+                          child: Divider(
+                            color: Colors.white54,
+                          ),
+                        ),
+                        DrawerTile(
+                          iconData: MdiIcons.cardAccountDetailsOutline,
+                          title: 'Exercícios',
+                          page: 3,
+                        ),
+                        DrawerTile(
+                          iconData: MdiIcons.accountGroupOutline,
+                          title: 'Alunos',
+                          page: 4,
+                        ),
+                        DrawerTile(
+                          iconData: MdiIcons.armFlexOutline,
+                          title: 'Passar treino',
+                          page: 5,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ],
           ),

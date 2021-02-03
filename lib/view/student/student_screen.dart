@@ -72,7 +72,7 @@ class _StudentScreenState extends State<StudentScreen> {
                 children: [
                   ProfilePic(
                     sizeProfile: heightScreen / 7,
-                    image: widget.student.images.first,
+                    image: widget.student.images.last,
                   ),
                   Stack(
                     children: [
@@ -109,7 +109,7 @@ class _StudentScreenState extends State<StudentScreen> {
                             child: StudentTile(
                               MdiIcons.whatsapp,
                               // ignore: unnecessary_string_interpolations
-                              '${widget.student?.whatsapp ?? '(**)*****-****'}',
+                              '${widget.student?.whatsapp ?? 'Sem whatsapp'}',
                             ), //! Já pode inserir no banco de dados
                           ),
                           Padding(
@@ -117,7 +117,7 @@ class _StudentScreenState extends State<StudentScreen> {
                             child: StudentTile(
                               MdiIcons.instagram,
                               // ignore: unnecessary_string_interpolations
-                              '${widget.student?.whatsapp ?? '@brenoitalo16'}',
+                              '${widget.student?.instagram ?? 'Sem insta'}',
                             ), //! Já pode inserir no banco de dados
                           ),
                           const Padding(
@@ -130,8 +130,8 @@ class _StudentScreenState extends State<StudentScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
-                                  children: const [
-                                    Padding(
+                                  children: [
+                                    const Padding(
                                       padding:
                                           EdgeInsets.fromLTRB(32, 0, 16, 0),
                                       child: Icon(
@@ -140,8 +140,8 @@ class _StudentScreenState extends State<StudentScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '78.00 Kg',
-                                      style: TextStyle(
+                                      '${widget.student?.weight ?? '0.0'} kg',
+                                      style: const TextStyle(
                                         color: Colors.black54,
                                         fontSize: 16,
                                       ),
@@ -149,8 +149,8 @@ class _StudentScreenState extends State<StudentScreen> {
                                   ],
                                 ),
                                 Row(
-                                  children: const [
-                                    Padding(
+                                  children: [
+                                    const Padding(
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 16),
                                       child: Icon(
@@ -159,10 +159,11 @@ class _StudentScreenState extends State<StudentScreen> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 0, 32, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 0, 32, 0),
                                       child: Text(
-                                        '1.74 de altura',
-                                        style: TextStyle(
+                                        '${widget.student?.size ?? '0.0'} m de altura',
+                                        style: const TextStyle(
                                           color: Colors.black54,
                                           fontSize: 16,
                                         ),
