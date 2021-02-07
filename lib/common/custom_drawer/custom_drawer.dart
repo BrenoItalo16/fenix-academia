@@ -1,6 +1,5 @@
 import 'package:fenix_academia/common/custom_drawer/custom_drawer_header.dart';
 import 'package:fenix_academia/common/custom_drawer/drawer_tile.dart';
-import 'package:fenix_academia/models/student.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

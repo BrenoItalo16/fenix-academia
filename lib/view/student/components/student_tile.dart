@@ -8,6 +8,7 @@ class StudentTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final heightScreen = MediaQuery.of(context).size.width;
     return Row(
       children: [
         Padding(
@@ -15,13 +16,14 @@ class StudentTile extends StatelessWidget {
           child: Icon(
             iconData,
             color: const Color.fromARGB(230, 80, 30, 30),
+            size: heightScreen / 16,
           ),
         ),
         Text(
           whatsapp, //Todo: Color o número
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.black54,
-            fontSize: 16,
+            fontSize: heightScreen / 25,
           ),
         ),
       ],

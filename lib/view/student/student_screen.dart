@@ -19,12 +19,17 @@ class StudentScreen extends StatefulWidget {
 class _StudentScreenState extends State<StudentScreen> {
   @override
   Widget build(BuildContext context) {
-    final double heightScreen = MediaQuery.of(context).size.height;
+    final heightScreen = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('Dados do aluno'),
+        title: Text(
+          'Dados do aluno',
+          style: TextStyle(
+            fontSize: heightScreen / 20,
+          ),
+        ),
         centerTitle: true,
         actions: [
           Consumer<UserManager>(
@@ -71,16 +76,15 @@ class _StudentScreenState extends State<StudentScreen> {
               Column(
                 children: [
                   ProfilePic(
-                    sizeProfile: heightScreen / 7,
+                    sizeProfile: heightScreen / 3,
                     image: widget.student.images.last,
                   ),
                   Stack(
                     children: [
                       Container(
-                        height: heightScreen,
+                        height: heightScreen * 1.55,
                         decoration: const BoxDecoration(
                           color: Colors.white,
-                          // borderRadius: BorderRadius.all(Radius.circular(60.0)),
                           borderRadius:
                               BorderRadius.only(topLeft: Radius.circular(60)),
                         ),
@@ -88,14 +92,61 @@ class _StudentScreenState extends State<StudentScreen> {
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 16),
                             child: Center(
                               child: Text(
                                 widget.student.name,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: heightScreen / 20,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
+                          ),
+                          Consumer<UserManager>(
+                            builder: (_, userManager, __) {
+                              if (userManager.devEnabled) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 42,
+                                    vertical: 8,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      RaisedButton(
+                                        onPressed: () {
+                                          widget.student.saveAdm();
+                                        },
+                                        child: Text(
+                                          'Tonar adm',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black38,
+                                            fontSize: heightScreen / 25,
+                                          ),
+                                        ),
+                                      ),
+                                      RaisedButton(
+                                        onPressed: () {
+                                          widget.student.saveTreiner();
+                                        },
+                                        child: Text(
+                                          'Tornar instrutor',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black38,
+                                            fontSize: heightScreen / 25,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Container();
+                            },
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -131,31 +182,35 @@ class _StudentScreenState extends State<StudentScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(32, 0, 16, 0),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          32, 0, 16, 0),
                                       child: Icon(
                                         MdiIcons.weightKilogram,
-                                        color: Color.fromARGB(230, 80, 30, 30),
+                                        color: const Color.fromARGB(
+                                            230, 80, 30, 30),
+                                        size: heightScreen / 16,
                                       ),
                                     ),
                                     Text(
                                       '${widget.student?.weight ?? '0.0'} kg',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: Colors.black54,
-                                        fontSize: 16,
+                                        fontSize: heightScreen / 25,
                                       ),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 16),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16),
                                       child: Icon(
                                         MdiIcons.humanMaleHeight,
-                                        color: Color.fromARGB(230, 80, 30, 30),
+                                        color: const Color.fromARGB(
+                                            230, 80, 30, 30),
+                                        size: heightScreen / 16,
                                       ),
                                     ),
                                     Padding(
@@ -163,9 +218,9 @@ class _StudentScreenState extends State<StudentScreen> {
                                           0, 0, 32, 0),
                                       child: Text(
                                         '${widget.student?.size ?? '0.0'} m de altura',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: Colors.black54,
-                                          fontSize: 16,
+                                          fontSize: heightScreen / 25,
                                         ),
                                       ),
                                     ),
@@ -177,19 +232,22 @@ class _StudentScreenState extends State<StudentScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Row(
-                              children: const [
+                              children: [
                                 Padding(
-                                  padding: EdgeInsets.only(right: 16, left: 32),
+                                  padding: const EdgeInsets.only(
+                                      right: 16, left: 32),
                                   child: Icon(
                                     MdiIcons.timelapse,
-                                    color: Color.fromARGB(230, 80, 30, 30),
+                                    color:
+                                        const Color.fromARGB(230, 80, 30, 30),
+                                    size: heightScreen / 16,
                                   ),
                                 ),
                                 Text(
-                                  '30 anos de idade', //Todo: Colocar Altura
+                                  widget.student?.yearsOld ?? "nada",
                                   style: TextStyle(
                                     color: Colors.black54,
-                                    fontSize: 16,
+                                    fontSize: heightScreen / 25,
                                   ),
                                 ),
                               ],
@@ -199,18 +257,46 @@ class _StudentScreenState extends State<StudentScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Row(
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(right: 16, left: 32),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 16, left: 32),
+                                  child: Icon(
+                                    MdiIcons.chartBox,
+                                    color:
+                                        const Color.fromARGB(230, 80, 30, 30),
+                                    size: heightScreen / 16,
+                                  ),
+                                ),
+                                Text(
+                                  'Seu IMC é ${widget.student?.imc ?? ""}',
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: heightScreen / 25,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 16, left: 32),
                                   child: Icon(
                                     MdiIcons.alertDecagram,
                                     color: Colors.amber,
+                                    size: heightScreen / 16,
                                   ),
                                 ),
-                                const Text(
-                                  'Você está levemente a cima do peso',
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 16,
+                                Expanded(
+                                  child: Text(
+                                    widget.student?.imcInfo ?? "",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: heightScreen / 25,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -228,21 +314,24 @@ class _StudentScreenState extends State<StudentScreen> {
                           const SizedBox(height: 16),
                           const StudentTile(MdiIcons.gateAnd, 'Teste 02'),
                           const SizedBox(height: 8),
-
                           const Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: 24,
                             ),
                             child: Divider(thickness: 2),
                           ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24, right: 32),
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: const Text('Ativo desde 01/11/2020'),
-                            ),
-                          ), //! Ultimo
+                          // Padding(
+                          //   padding: const EdgeInsets.only(top: 24, right: 32),
+                          //   child: Container(
+                          //     alignment: Alignment.centerRight,
+                          //     child: Text(
+                          //       'Ativo desde 01/11/2020',
+                          //       style: TextStyle(
+                          //         fontSize: heightScreen / 30,
+                          //       ),
+                          //     ),
+                          //   ), //! Ultimo
+                          // ),
                         ],
                       )
                     ],

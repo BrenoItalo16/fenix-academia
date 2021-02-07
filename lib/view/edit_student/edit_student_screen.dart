@@ -1,5 +1,6 @@
 import 'package:fenix_academia/models/student.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 
@@ -14,6 +15,21 @@ class EditStudentScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final whatsappMask = MaskTextInputFormatter(mask: '(##) #####-####',
+        // ignore: unnecessary_raw_strings
+        filter: {"#": RegExp(r'[0-9]')});
+    final dateMask = MaskTextInputFormatter(mask: '##/##/####',
+        // ignore: unnecessary_raw_strings
+        filter: {"#": RegExp(r'[0-9]')});
+    final instagramMask = MaskTextInputFormatter(
+      mask: '@###############################################################',
+      filter: {"#": RegExp(r'[\D-\d]')},
+    );
+    final sizeMask = MaskTextInputFormatter(
+      mask: '#.##',
+      // ignore: unnecessary_raw_strings
+      filter: {"#": RegExp(r'[0-9]')},
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -74,6 +90,8 @@ class EditStudentScreen extends StatelessWidget {
                       const SizedBox(height: 8),
                       //! whatsapp
                       TextFormField(
+                        inputFormatters: [whatsappMask],
+                        keyboardType: TextInputType.phone,
                         initialValue: student?.whatsapp ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir whatsapp',
@@ -86,6 +104,7 @@ class EditStudentScreen extends StatelessWidget {
                       ),
                       //! insta
                       TextFormField(
+                        inputFormatters: [instagramMask],
                         initialValue: student?.instagram ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir instagram',
@@ -98,6 +117,7 @@ class EditStudentScreen extends StatelessWidget {
                       ),
                       //! peso
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         initialValue: student?.weight ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir peso',
@@ -110,6 +130,8 @@ class EditStudentScreen extends StatelessWidget {
                       ),
                       //! altura
                       TextFormField(
+                        inputFormatters: [sizeMask],
+                        keyboardType: TextInputType.number,
                         initialValue: student?.size ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir altura',
@@ -122,6 +144,8 @@ class EditStudentScreen extends StatelessWidget {
                       ),
                       //! data de nascimento
                       TextFormField(
+                        inputFormatters: [dateMask],
+                        keyboardType: TextInputType.datetime,
                         initialValue: student?.born ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir data de nascimento',

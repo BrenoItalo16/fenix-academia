@@ -42,6 +42,7 @@ class SignupScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 2,
                 ),
               ),
+            //! corrigir esse STACK
             Stack(
               overflow: Overflow.visible,
               children: [

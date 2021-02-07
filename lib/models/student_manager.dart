@@ -9,6 +9,7 @@ class StudentManager extends ChangeNotifier {
 
   final Firestore firestore = Firestore.instance;
   List<Student> allStudents = [];
+  List<Student> allAdmins = [];
 
   String _search = '';
 

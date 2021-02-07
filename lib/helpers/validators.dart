@@ -5,7 +5,10 @@ bool emailValid(String email) {
   return regex.hasMatch(email);
 }
 
-bool whatsappValid(String whatsapp) {
-  final RegExp regex = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
-  return regex.hasMatch(whatsapp);
+weightValid(weightVal) {
+  // final RegExp regex = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
+  // return regex.hasMatch(weightVal);
+  return weightVal
+      .replaceAll(RegExp(r'/\D/g'), '')
+      .replaceAll(RegExp(r'/\D/g'), '');
 }

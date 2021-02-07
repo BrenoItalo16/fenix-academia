@@ -11,26 +11,26 @@ class MoneyScreen extends StatelessWidget {
       drawer: CustomDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        actions: [
-          Consumer<UserManager>(
-            builder: (_, userManager, __) {
-              return IconButton(
-                icon: Icon(
-                  userManager.isLoggedIn ? Icons.logout : Icons.login,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  if (userManager.isLoggedIn) {
-                    Navigator.of(context).pushReplacementNamed('/base');
-                    userManager.signOut();
-                  } else {
-                    Navigator.of(context).pushReplacementNamed('/login');
-                  }
-                },
-              );
-            },
-          ),
-        ],
+        // actions: [
+        //   Consumer<UserManager>(
+        //     builder: (_, userManager, __) {
+        //       return IconButton(
+        //         icon: Icon(
+        //           userManager.isLoggedIn ? Icons.logout : Icons.login,
+        //           color: Colors.white,
+        //         ),
+        //         onPressed: () {
+        //           if (userManager.isLoggedIn) {
+        //             Navigator.of(context).pushReplacementNamed('/base');
+        //             userManager.signOut();
+        //           } else {
+        //             Navigator.of(context).pushReplacementNamed('/login');
+        //           }
+        //         },
+        //       );
+        //     },
+        //   ),
+        // ],
       ),
       body: Consumer<UserManager>(
         builder: (_, userManager, __) {
@@ -57,8 +57,16 @@ class MoneyScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 130, 16, 16),
                 child: ListView(
                   //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(), //! Add widgets
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.only(top: 100),
+                      child: Center(
+                        child: Text(
+                          'Tela em desenvolvimento',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

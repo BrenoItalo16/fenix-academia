@@ -23,7 +23,6 @@ class UserManager extends ChangeNotifier {
   Future<void> signIn({User user, Function onFail, Function onSuccess}) async {
     loading = true;
     try {
-      // ignore: unused_local_variable
       final AuthResult result = await auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
       await Future.delayed(const Duration(seconds: 1)); //! Atrazar o loading
