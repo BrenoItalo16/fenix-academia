@@ -1,5 +1,5 @@
 import 'package:fenix_academia/common/profile_pic/profile_pic.dart';
-import 'package:fenix_academia/models/student.dart';
+import 'package:fenix_academia/models/user.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:fenix_academia/view/student/components/student_tile.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,9 +8,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 
 class StudentScreen extends StatefulWidget {
-  const StudentScreen(this.student);
+  const StudentScreen(this.user);
 
-  final Student student;
+  final User user;
 
   @override
   _StudentScreenState createState() => _StudentScreenState();
@@ -34,14 +34,14 @@ class _StudentScreenState extends State<StudentScreen> {
         actions: [
           Consumer<UserManager>(
             builder: (_, userManager, __) {
-              if (userManager.user.id == widget.student.id) {
+              if (userManager.user.id == widget.user.id) {
                 return IconButton(
                   icon: const Icon(
                     MdiIcons.accountEdit,
                   ),
                   onPressed: () {
                     Navigator.of(context)
-                        .pushNamed('/editstudent', arguments: widget.student);
+                        .pushNamed('/editstudent', arguments: userManager.user);
                   },
                 );
               } else {
@@ -77,7 +77,7 @@ class _StudentScreenState extends State<StudentScreen> {
                 children: [
                   ProfilePic(
                     sizeProfile: heightScreen / 3,
-                    image: widget.student.images.last,
+                    image: widget.user.images.last,
                   ),
                   Stack(
                     children: [
@@ -96,7 +96,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                 horizontal: 16, vertical: 16),
                             child: Center(
                               child: Text(
-                                widget.student.name,
+                                widget.user.name,
                                 style: TextStyle(
                                     fontSize: heightScreen / 20,
                                     fontWeight: FontWeight.bold),
@@ -117,7 +117,9 @@ class _StudentScreenState extends State<StudentScreen> {
                                     children: [
                                       RaisedButton(
                                         onPressed: () {
-                                          widget.student.saveAdm();
+                                          debugPrint(
+                                              'O botão está funcionando');
+                                          //todo: CRIAR SAVAR ADM
                                         },
                                         child: Text(
                                           'Tonar adm',
@@ -130,7 +132,9 @@ class _StudentScreenState extends State<StudentScreen> {
                                       ),
                                       RaisedButton(
                                         onPressed: () {
-                                          widget.student.saveTreiner();
+                                          debugPrint(
+                                              'O botão está funcionando');
+                                          //todo: CRIAR SAVAR TREINER
                                         },
                                         child: Text(
                                           'Tornar instrutor',
@@ -152,7 +156,7 @@ class _StudentScreenState extends State<StudentScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: StudentTile(
                               MdiIcons.cardAccountMail,
-                              widget.student.email,
+                              widget.user.email,
                             ),
                           ),
                           Padding(
@@ -160,7 +164,7 @@ class _StudentScreenState extends State<StudentScreen> {
                             child: StudentTile(
                               MdiIcons.whatsapp,
                               // ignore: unnecessary_string_interpolations
-                              '${widget.student?.whatsapp ?? 'Sem whatsapp'}',
+                              '${widget.user?.whatsapp ?? 'Sem whatsapp'}',
                             ), //! Já pode inserir no banco de dados
                           ),
                           Padding(
@@ -168,7 +172,7 @@ class _StudentScreenState extends State<StudentScreen> {
                             child: StudentTile(
                               MdiIcons.instagram,
                               // ignore: unnecessary_string_interpolations
-                              '${widget.student?.instagram ?? 'Sem insta'}',
+                              '${widget.user?.instagram ?? 'Sem insta'}',
                             ), //! Já pode inserir no banco de dados
                           ),
                           const Padding(
@@ -193,7 +197,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '${widget.student?.weight ?? '0.0'} kg',
+                                      '${widget.user?.weight ?? '0.0'} kg',
                                       style: TextStyle(
                                         color: Colors.black54,
                                         fontSize: heightScreen / 25,
@@ -217,7 +221,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                       padding: const EdgeInsets.fromLTRB(
                                           0, 0, 32, 0),
                                       child: Text(
-                                        '${widget.student?.size ?? '0.0'} m de altura',
+                                        '${widget.user?.size ?? '0.0'} m de altura',
                                         style: TextStyle(
                                           color: Colors.black54,
                                           fontSize: heightScreen / 25,
@@ -244,7 +248,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                   ),
                                 ),
                                 Text(
-                                  widget.student?.yearsOld ?? "nada",
+                                  widget.user?.yearsOld ?? "nada",
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: heightScreen / 25,
@@ -268,7 +272,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Seu IMC é ${widget.student?.imc ?? ""}',
+                                  'Seu IMC é ${widget.user?.imc ?? ""}',
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: heightScreen / 25,
@@ -292,7 +296,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    widget.student?.imcInfo ?? "",
+                                    widget.user?.imcInfo ?? "",
                                     style: TextStyle(
                                       color: Colors.black54,
                                       fontSize: heightScreen / 25,

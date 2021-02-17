@@ -1,4 +1,5 @@
 import 'package:fenix_academia/models/student.dart';
+import 'package:fenix_academia/models/user.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:fenix_academia/view/base/base_screen.dart';
 import 'package:fenix_academia/view/edit_student/edit_student_screen.dart';
@@ -11,6 +12,7 @@ import 'package:fenix_academia/view/treinning/treinning_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'models/admin_users_manager.dart';
 import 'models/student_manager.dart';
 import 'view/student/student_screen.dart';
 import 'view/student_list/students_list_screen.dart';
@@ -42,6 +44,22 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => StudentManager(),
           lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => StudentManager(),
+          lazy: false,
+        ),
+        ChangeNotifierProxyProvider<UserManager, StudentManager>(
+          create: (_) => StudentManager(),
+          lazy: false,
+          update: (_, userManager, studentManager) =>
+              studentManager..updateUser(userManager),
+        ),
+        ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
+          create: (_) => AdminUsersManager(),
+          lazy: false,
+          update: (_, userManager, adminUsersManager) =>
+              adminUsersManager..updateUser(userManager),
         ),
         Provider(
           create: (_) => SignupConfirm,
@@ -92,12 +110,11 @@ class MyApp extends StatelessWidget {
               );
             case '/student':
               return MaterialPageRoute(
-                builder: (_) => StudentScreen(settings.arguments as Student),
+                builder: (_) => StudentScreen(settings.arguments as User),
               );
             case '/editstudent':
               return MaterialPageRoute(
-                builder: (_) =>
-                    EditStudentScreen(settings.arguments as Student),
+                builder: (_) => EditStudentScreen(settings.arguments as User),
               );
             case '/':
             default:

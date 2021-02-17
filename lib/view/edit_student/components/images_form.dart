@@ -1,16 +1,17 @@
 import 'dart:io';
 
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:fenix_academia/models/student.dart';
+import 'package:fenix_academia/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'image_source_sheet.dart';
 
 class ImagesForm extends StatelessWidget {
   const ImagesForm(this.student);
-  final Student student;
+  final User student;
   @override
   Widget build(BuildContext context) {
+    // final heightScreen = MediaQuery.of(context).size.width;
     return FormField<List<dynamic>>(
       initialValue: List.from(student.images),
       validator: (images) {
@@ -32,8 +33,10 @@ class ImagesForm extends StatelessWidget {
               child: Carousel(
                 images: state.value.map<Widget>((image) {
                   return Card(
-                    margin: const EdgeInsets.fromLTRB(32, 16, 32, 32),
+                    margin: const EdgeInsets.fromLTRB(80, 80, 80, 80),
                     clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
                     child: Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
@@ -73,7 +76,9 @@ class ImagesForm extends StatelessWidget {
                   ..add(
                     //! Início do Cartão
                     Card(
-                      margin: const EdgeInsets.fromLTRB(32, 16, 32, 32),
+                      margin: const EdgeInsets.fromLTRB(80, 80, 80, 80),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32)),
                       clipBehavior: Clip.antiAlias,
                       child: Stack(
                         fit: StackFit.expand,
@@ -84,7 +89,7 @@ class ImagesForm extends StatelessWidget {
                               icon: const Icon(
                                 Icons.add_a_photo,
                                 color: Colors.grey,
-                                size: 46,
+                                size: 90,
                               ),
                               onPressed: () {
                                 showModalBottomSheet(

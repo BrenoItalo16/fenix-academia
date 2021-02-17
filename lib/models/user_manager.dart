@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fenix_academia/helpers/firebase_errors.dart';
-import 'package:fenix_academia/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fenix_academia/helpers/firebase_errors.dart';
+import 'package:fenix_academia/models/user.dart';
 
 class UserManager extends ChangeNotifier {
   UserManager() {
@@ -18,6 +18,18 @@ class UserManager extends ChangeNotifier {
   bool _loading = false;
   bool get loading => _loading;
 
+  List<User> allUsers = [];
+  List<User> allAdmins = [];
+
+  String _search = '';
+
+  String get search => _search;
+
+  set search(String value) {
+    _search = value;
+    notifyListeners();
+  }
+
   bool get isLoggedIn => user != null;
 
   Future<void> signIn({User user, Function onFail, Function onSuccess}) async {
@@ -25,7 +37,7 @@ class UserManager extends ChangeNotifier {
     try {
       final AuthResult result = await auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
-      await Future.delayed(const Duration(seconds: 1)); //! Atrazar o loading
+      await Future.delayed(const Duration(seconds: 0)); //! Atrazar o loading
 
       await _loadCurrentUser(firebaseUser: result.user);
 
@@ -34,6 +46,44 @@ class UserManager extends ChangeNotifier {
       onFail(getErrorString(e.code));
     }
     loading = false;
+  }
+
+  List<User> get filteredUsers {
+    final List<User> filteredUsers = [];
+
+    if (search.isEmpty) {
+      filteredUsers.addAll(allUsers);
+    } else {
+      filteredUsers.addAll(
+        allUsers.where(
+          (s) => s.name.toLowerCase().contains(search.toLowerCase()),
+        ),
+      );
+    }
+    return filteredUsers;
+  }
+
+  Future<void> _loadAllUsers() async {
+    final QuerySnapshot snapUsers =
+        await firestore.collection('users').getDocuments();
+
+    allUsers = snapUsers.documents.map((d) => User.fromDocument(d)).toList();
+
+    notifyListeners();
+  }
+
+  User findProductById(User id) {
+    try {
+      return allUsers.firstWhere((p) => p.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  void update(User user) {
+    allUsers.removeWhere((p) => p.id == user.id);
+    allUsers.add(user);
+    notifyListeners();
   }
 
   Future<void> signUp({User user, Function onFail, Function onSuccess}) async {
@@ -105,4 +155,6 @@ class UserManager extends ChangeNotifier {
   bool get treinerEnabled => user != null && user.treiner;
 
   bool get devEnabled => user != null && user.dev;
+
+  //! here---------
 }

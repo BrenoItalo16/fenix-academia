@@ -14,24 +14,24 @@ class HomeScreen extends StatelessWidget {
       drawer: CustomDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        // actions: [
-        //   Consumer<UserManager>(
-        //     builder: (_, userManager, __) {
-        //       return IconButton(
-        //         icon: Icon(
-        //           userManager.isLoggedIn ? Icons.logout : Icons.login,
-        //           color: Colors.white,
-        //         ),
-        //         onPressed: () {
-        //           if (userManager.user.id.isNotEmpty) {
-        //             debugPrint(userManager.user.name.toString());
-        //             debugPrint(userManager.user.images.toString());
-        //           }
-        //         },
-        //       );
-        //     },
-        //   ),
-        // ],
+        actions: [
+          Consumer<UserManager>(
+            builder: (_, userManager, __) {
+              if (userManager.devEnabled || userManager.adminEnabled) {
+                return IconButton(
+                  icon: const Icon(
+                    MdiIcons.accountPlus,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/signup');
+                  },
+                );
+              }
+              return Container();
+            },
+          ),
+        ],
       ),
       body: Consumer<UserManager>(
         builder: (_, userManager, __) {

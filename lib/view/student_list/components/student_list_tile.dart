@@ -60,7 +60,10 @@ class StudentListTile extends StatelessWidget {
                             shape: BoxShape.circle,
                             // color: Color.fromARGB(255, 80, 30, 130),
                             image: DecorationImage(
-                              image: NetworkImage(student.images.last),
+                              image: NetworkImage(
+                                student?.images?.last ??
+                                    'https://i.imgur.com/8dpBpns.jpg',
+                              ),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -69,19 +72,32 @@ class StudentListTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 4),
                       Text(
-                        student.name,
+                        student?.name ?? 'Valor nulo',
                         style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.white54),
-                      )
+                      ),
+                      Text(
+                        student?.whatsapp ?? '',
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white54),
+                      ),
+                      Text(
+                        student?.instagram ?? '',
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white54),
+                      ),
                     ],
                   ),
                 ),

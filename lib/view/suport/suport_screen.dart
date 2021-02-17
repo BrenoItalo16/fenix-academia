@@ -13,26 +13,26 @@ class SuportScreen extends StatelessWidget {
       drawer: CustomDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        actions: [
-          Consumer<UserManager>(
-            builder: (_, userManager, __) {
-              return IconButton(
-                icon: Icon(
-                  userManager.isLoggedIn ? Icons.logout : Icons.login,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  if (userManager.isLoggedIn) {
-                    Navigator.of(context).pushReplacementNamed('/base');
-                    userManager.signOut();
-                  } else {
-                    Navigator.of(context).pushReplacementNamed('/login');
-                  }
-                },
-              );
-            },
-          ),
-        ],
+        // actions: [
+        //   Consumer<UserManager>(
+        //     builder: (_, userManager, __) {
+        //       return IconButton(
+        //         icon: Icon(
+        //           userManager.isLoggedIn ? Icons.logout : Icons.login,
+        //           color: Colors.white,
+        //         ),
+        //         onPressed: () {
+        //           if (userManager.isLoggedIn) {
+        //             Navigator.of(context).pushReplacementNamed('/base');
+        //             userManager.signOut();
+        //           } else {
+        //             Navigator.of(context).pushReplacementNamed('/login');
+        //           }
+        //         },
+        //       );
+        //     },
+        //   ),
+        // ],
       ),
       body: Consumer<UserManager>(
         builder: (_, userManager, __) {

@@ -1,17 +1,14 @@
-import 'package:fenix_academia/models/student.dart';
+import 'package:fenix_academia/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:fenix_academia/models/user_manager.dart';
-
 import 'components/images_form.dart';
 
+// ignore: must_be_immutable
 class EditStudentScreen extends StatelessWidget {
-  EditStudentScreen(Student s)
-      : editing = s != null,
-        student = s != null ? s.clone() : Student();
-  final Student student;
-  final bool editing;
+  EditStudentScreen(this.user);
+  User user;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -35,11 +32,12 @@ class EditStudentScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 80, 30, 30),
-        title: Text(editing ? 'Editando aluno' : 'Criar aluno'),
+        title: const Text('Editando aluno'),
         centerTitle: true,
       ),
       body: Consumer<UserManager>(
-        builder: (_, userManager, __) {
+        builder: (_, user, __) {
+          final usr = user.user;
           return Form(
             key: formKey,
             child: ListView(
@@ -49,7 +47,7 @@ class EditStudentScreen extends StatelessWidget {
                     Column(
                       children: [
                         Container(
-                          height: 200,
+                          height: 30,
                           color: const Color.fromARGB(255, 80, 30, 30),
                         ),
                         Stack(
@@ -68,11 +66,23 @@ class EditStudentScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  usr.name,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ],
                     ),
-                    ImagesForm(student),
+                    ImagesForm(usr),
                   ],
                 ),
                 Padding(
@@ -81,7 +91,7 @@ class EditStudentScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        student.name,
+                        usr.name,
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -92,7 +102,7 @@ class EditStudentScreen extends StatelessWidget {
                       TextFormField(
                         inputFormatters: [whatsappMask],
                         keyboardType: TextInputType.phone,
-                        initialValue: student?.whatsapp ?? '',
+                        initialValue: usr?.whatsapp ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir whatsapp',
                         ),
@@ -100,12 +110,12 @@ class EditStudentScreen extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
-                        onSaved: (whatsapp) => student.whatsapp = whatsapp,
+                        onSaved: (whatsapp) => usr.whatsapp = whatsapp,
                       ),
                       //! insta
                       TextFormField(
                         inputFormatters: [instagramMask],
-                        initialValue: student?.instagram ?? '',
+                        initialValue: usr?.instagram ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir instagram',
                         ),
@@ -113,12 +123,12 @@ class EditStudentScreen extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
-                        onSaved: (instagram) => student.instagram = instagram,
+                        onSaved: (instagram) => usr.instagram = instagram,
                       ),
                       //! peso
                       TextFormField(
                         keyboardType: TextInputType.number,
-                        initialValue: student?.weight ?? '',
+                        initialValue: usr?.weight ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir peso',
                         ),
@@ -126,13 +136,13 @@ class EditStudentScreen extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
-                        onSaved: (weight) => student.weight = weight,
+                        onSaved: (weight) => usr.weight = weight,
                       ),
                       //! altura
                       TextFormField(
                         inputFormatters: [sizeMask],
                         keyboardType: TextInputType.number,
-                        initialValue: student?.size ?? '',
+                        initialValue: usr?.size ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir altura',
                         ),
@@ -140,13 +150,13 @@ class EditStudentScreen extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
-                        onSaved: (size) => student.size = size,
+                        onSaved: (size) => usr.size = size,
                       ),
                       //! data de nascimento
                       TextFormField(
                         inputFormatters: [dateMask],
                         keyboardType: TextInputType.datetime,
-                        initialValue: student?.born ?? '',
+                        initialValue: usr?.born ?? '',
                         decoration: const InputDecoration(
                           hintText: 'Inserir data de nascimento',
                         ),
@@ -154,7 +164,7 @@ class EditStudentScreen extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
-                        onSaved: (born) => student.born = born,
+                        onSaved: (born) => usr.born = born,
                       ),
 
                       const SizedBox(height: 8),
@@ -163,8 +173,8 @@ class EditStudentScreen extends StatelessWidget {
                         onPressed: () async {
                           if (formKey.currentState.validate()) {
                             formKey.currentState.save();
-                            await student.save();
-                            debugPrint('O botão de SALVAR tá funcionando');
+                            // await usr.save(); //!Criar metodo save();
+                            debugPrint('Criar o botão método save');
                           }
                         },
                         child: const Text(
