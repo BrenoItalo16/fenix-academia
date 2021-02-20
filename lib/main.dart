@@ -1,4 +1,3 @@
-import 'package:fenix_academia/models/student.dart';
 import 'package:fenix_academia/models/user.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:fenix_academia/view/base/base_screen.dart';
@@ -12,8 +11,10 @@ import 'package:fenix_academia/view/treinning/treinning_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'models/admin_users_manager.dart';
+import 'models/adm_manager.dart';
+import 'models/list_users_manager.dart';
 import 'models/student_manager.dart';
+import 'view/adms/adms_screen.dart';
 import 'view/student/student_screen.dart';
 import 'view/student_list/students_list_screen.dart';
 import 'view/suport/suport_screen.dart';
@@ -42,6 +43,10 @@ class MyApp extends StatelessWidget {
           lazy: false,
         ),
         ChangeNotifierProvider(
+          create: (_) => AdmManager(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
           create: (_) => StudentManager(),
           lazy: false,
         ),
@@ -55,8 +60,8 @@ class MyApp extends StatelessWidget {
           update: (_, userManager, studentManager) =>
               studentManager..updateUser(userManager),
         ),
-        ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
-          create: (_) => AdminUsersManager(),
+        ChangeNotifierProxyProvider<UserManager, ListUsersManager>(
+          create: (_) => ListUsersManager(),
           lazy: false,
           update: (_, userManager, adminUsersManager) =>
               adminUsersManager..updateUser(userManager),
@@ -71,9 +76,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: const Color.fromARGB(255, 80, 30, 30),
-//          primaryColor: const Color.fromARGB(255, 46, 52, 65),
           scaffoldBackgroundColor: const Color.fromARGB(255, 80, 30, 30),
-//          scaffoldBackgroundColor: const Color.fromARGB(255, 46, 52, 65),
           appBarTheme: const AppBarTheme(elevation: 0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
@@ -95,6 +98,10 @@ class MyApp extends StatelessWidget {
             case '/students':
               return MaterialPageRoute(
                 builder: (_) => StudentsListScreen(),
+              );
+            case '/adms':
+              return MaterialPageRoute(
+                builder: (_) => AdmsScreen(),
               );
             case '/money':
               return MaterialPageRoute(

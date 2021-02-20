@@ -1,17 +1,17 @@
 import 'package:fenix_academia/common/custom_drawer/custom_drawer.dart';
-import 'package:fenix_academia/models/list_users_manager.dart';
-import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
+import 'package:fenix_academia/models/adm_manager.dart';
+import 'package:fenix_academia/models/user.dart';
 import 'package:fenix_academia/models/user_manager.dart';
+import 'package:fenix_academia/view/student_list/components/search_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'components/search_dialog.dart';
-
-class StudentsListScreen extends StatelessWidget {
+class AdmsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final heightScreen = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 22, 32, 42),
       drawer: CustomDrawer(),
       appBar: AppBar(
         // centerTitle: true,
@@ -19,7 +19,7 @@ class StudentsListScreen extends StatelessWidget {
           builder: (_, userManager, __) {
             if (userManager.search.isEmpty) {
               return const Text(
-                'Alunos',
+                'Administradores',
               );
             } else {
               return LayoutBuilder(
@@ -100,9 +100,10 @@ class StudentsListScreen extends StatelessWidget {
               ),
             ),
           ),
-          Consumer<ListUsersManager>(
-            builder: (_, adm, __) {
-              return AlphabetListScrollView(
+          Consumer<UserManager>(
+            builder: (_, userManager, __) {
+              return ListView.builder(
+                itemCount: userManager.admUsers.length,
                 itemBuilder: (_, index) {
                   return Padding(
                     padding: EdgeInsets.only(
@@ -113,54 +114,45 @@ class StudentsListScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25.0),
                       ),
-                      color: const Color.fromARGB(255, 100, 30, 30),
+                      color: const Color.fromARGB(255, 42, 52, 62),
                       child: ListTile(
-                        leading: Container(
-                          height: heightScreen / 9,
-                          width: heightScreen / 9,
-                          alignment: Alignment.topLeft,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: NetworkImage(adm.users[index].images.last),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+                        // leading: Container(
+                        //   height: heightScreen / 9,
+                        //   width: heightScreen / 9,
+                        //   alignment: Alignment.topLeft,
+                        //   decoration: BoxDecoration(
+                        //     shape: BoxShape.circle,
+                        //     image: DecorationImage(
+                        //       image: NetworkImage(adm.users[index].images.last),
+                        //       fit: BoxFit.cover,
+                        //     ),
+                        //   ),
+                        // ),
                         title: Text(
-                          adm.users[index].name,
-                          style: const TextStyle(
+                          userManager.admUsers[index].id,
+                          style: TextStyle(
                             fontWeight: FontWeight.w800,
-                            color: Colors.white,
+                            color: Colors.white.withAlpha(200),
                           ),
                         ),
                         subtitle: Text(
-                          adm.users[index].email,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          userManager.admUsers[index].name,
+                          // admManager.users[index].email,
+                          style: TextStyle(
+                            color: Colors.white.withAlpha(100),
                           ),
                         ),
                         onTap: () {
-                          Navigator.of(context).pushNamed(
-                            '/student',
-                            arguments: adm.users[index],
-                          );
+                          // Navigator.of(context).pushNamed(
+                          //   '/student',
+                          //   arguments: admManager.allUsers[index],
+                          // arguments: admManager.allAdmins[index],
+                          // );
                         },
                       ),
                     ),
                   );
                 },
-                highlightTextStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: heightScreen / 22,
-                ),
-                normalTextStyle: TextStyle(
-                  color: const Color.fromARGB(255, 200, 30, 30),
-                  fontSize: heightScreen / 30,
-                ),
-                indexedHeight: (index) => heightScreen / 5.4,
-                strList: adm.names,
-                showPreview: true,
               );
             },
           ),

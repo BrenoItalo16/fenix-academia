@@ -73,9 +73,14 @@ class CustomDrawer extends StatelessWidget {
                           page: 4,
                         ),
                         DrawerTile(
+                          iconData: MdiIcons.crown,
+                          title: 'Administradores',
+                          page: 5,
+                        ),
+                        DrawerTile(
                           iconData: MdiIcons.armFlexOutline,
                           title: 'Passar treino',
-                          page: 5,
+                          page: 6,
                         ),
                       ],
                     );

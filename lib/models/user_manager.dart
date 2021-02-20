@@ -1,5 +1,8 @@
+import 'package:fenix_academia/models/adm.dart';
+import 'package:fenix_academia/models/adm_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fenix_academia/helpers/firebase_errors.dart';
@@ -8,6 +11,7 @@ import 'package:fenix_academia/models/user.dart';
 class UserManager extends ChangeNotifier {
   UserManager() {
     _loadCurrentUser();
+    // _loadAllAdms();
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -17,9 +21,10 @@ class UserManager extends ChangeNotifier {
 
   bool _loading = false;
   bool get loading => _loading;
-
+  // AdmManager admins;
   List<User> allUsers = [];
-  List<User> allAdmins = [];
+  List<User> admUsers = [];
+  List<Adm> adms = [];
 
   String _search = '';
 
@@ -46,6 +51,32 @@ class UserManager extends ChangeNotifier {
       onFail(getErrorString(e.code));
     }
     loading = false;
+  }
+
+  Future<void> _loadAllAdms() async {
+    final QuerySnapshot snapAdms =
+        await firestore.collection('admins').getDocuments();
+
+    adms = snapAdms.documents.map((d) => Adm.fromDocument(d)).toList();
+    notifyListeners();
+  }
+
+  //! Pega uma lista de usuários administradores
+  List<User> get allAdmUsers {
+    final List<User> users = []; //Cria lista vazia
+    final List<Adm> adms = [];
+    AdmManager admManager;
+    adms.addAll(admManager.allAdms);
+    users.addAll(allUsers);
+
+    for (var i = 0; i < adms.length; i++) {
+      for (final User user in users) {
+        if (user.id != adms[i].id) {
+          admUsers.add(user);
+        }
+      }
+    }
+    return admUsers;
   }
 
   List<User> get filteredUsers {

@@ -47,8 +47,9 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
                 if (userManager.isLoggedIn)
                   Center(
                     child: Text(
-                      // ignore: unnecessary_string_interpolations
-                      '${userManager.user?.name ?? ''}',
+                      //! Fazendo testes
+                      userManager.adms.length.toString(),
+                      // '${userManager.user?.name ?? ''}',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: const TextStyle(

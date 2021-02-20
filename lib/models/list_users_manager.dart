@@ -5,7 +5,7 @@ import 'package:fenix_academia/models/user.dart';
 import 'package:fenix_academia/models/user_manager.dart';
 import 'package:flutter/cupertino.dart';
 
-class AdminUsersManager extends ChangeNotifier {
+class ListUsersManager extends ChangeNotifier {
   List<User> users = [];
   final Firestore firestore = Firestore.instance;
 

@@ -1,5 +1,6 @@
 import 'package:fenix_academia/models/page_manager.dart';
 import 'package:fenix_academia/models/user_manager.dart';
+import 'package:fenix_academia/view/adms/adms_screen.dart';
 import 'package:fenix_academia/view/exercises/exercises_screen.dart';
 import 'package:fenix_academia/view/home/home_screen.dart';
 import 'package:fenix_academia/view/money_screen/money_screen.dart';
@@ -29,6 +30,7 @@ class BaseScreen extends StatelessWidget {
                   userManager.treinerEnabled) ...[
                 ExercisesScreen(),
                 StudentsListScreen(),
+                AdmsScreen(),
                 TreinningScreen(),
               ],
             ],
